@@ -1,0 +1,24 @@
+def kartTransport2CollCheck():
+    x = int(base.localAvatar.getX())
+    y = int(base.localAvatar.getY())
+    z = int(base.localAvatar.getZ())
+    
+    if x >= -16 and x <= -9 and z <= 4 and z >= 0 and y <= 20 and y >=11 :
+        print "Land Collisions: \'localAvatar\' has collided with \'kartTransport2\'"
+        mnuBtn1.hide()
+        base.localAvatar.collisionsOff()
+        base.localAvatar.physControls.disableAvatarControls()
+        base.localAvatar.b_setAnimState('Sit')
+        base.localAvatar.setPosHpr(9985,17,0,40,0,0)
+        base.cam.setPos(1, -3, 0)
+        base.camera.setHpr(0.0391477, -0.15114, 0)
+        base.localAvatar.hideBooks()
+
+def waitTillCheckCollisions():
+  seq = Sequence()
+  seq.append(Wait(0.1))
+  seq.append(Func(kartTransport2CollCheck))
+  seq.append(Func(waitTillCheckCollisions))
+  seq.start()
+
+waitTillCheckCollisions()

@@ -1,0 +1,13 @@
+from direct.actor.Actor import Actor
+from pandac.PandaModules import *
+from direct.task import Task
+import math
+from math import pi, sin, cos
+from direct.showbase.ShowBase import ShowBase
+from direct.task import Task
+from direct.interval.IntervalGlobal import *
+from pandac.PandaModules import Point3
+
+Hub = loader.loadModel('phase_14/models/cogHQ/test.bam')
+HubNode = render.attachNewNode('Hub')
+Hub.reparentTo(render)

@@ -1,0 +1,85 @@
+from direct.distributed import DistributedObject/AI
+from direct.distributed import DistributedNode/AI
+from direct.distributed import TimeManager/AI
+from direct.distributed import DistributedSmoothNode/AI
+from ToontownFD_Engine.toon import DistributedToon
+from ToontownFD_Engine.npc import DistributedNPC/AI
+
+keyword broadcast;
+keyword p2p;
+
+struct BarrierData {
+  uint16 context;
+  string name;
+  uint32 avIds[];
+};
+
+dclass DistributedObject {
+  setBarrierData(BarrierData []) broadcast ram;
+  setBarrierReady(uint16) airecv clsend;
+  execCommand(string, uint32, uint32, uint32);
+  broadcastMessage() broadcast;
+};
+
+dclass TimeManager : DistributedObject {
+  requestServerTime(uint8 context) p2p;
+  serverTime(uint8 context, int32 timestamp);
+};
+
+dclass DistributedNode : DistributedObject {
+  setParentStr(blob) broadcast ownsend airecv;
+  setParent(uint32) broadcast ownsend airecv;
+  setX(int16/10) broadcast ram ownsend airecv;
+  setY(int16/10) broadcast ram ownsend airecv;
+  setZ(int16/10) broadcast ram ownsend airecv;
+  setH(int16%360/10) broadcast ram ownsend airecv;
+  setP(int16%360/10) broadcast ram ownsend airecv;
+  setR(int16%360/10) broadcast ram ownsend airecv;
+  setPos : setX, setY, setZ;
+  setHpr : setH, setP, setR;
+  setPosHpr : setX, setY, setZ, setH, setP, setR;
+  setXY : setX, setY;
+  setXZ : setX, setZ;
+  setXYH : setX, setY, setH;
+  setXYZH : setX, setY, setZ, setH;
+};
+
+dclass DistributedSmoothNode : DistributedNode {
+  setComponentL(uint64) broadcast ram ownsend airecv;
+  setComponentX(int16/10) broadcast ram ownsend airecv;
+  setComponentY(int16/10) broadcast ram ownsend airecv;
+  setComponentZ(int16/10) broadcast ram ownsend airecv;
+  setComponentH(int16%360/10) broadcast ram ownsend airecv;
+  setComponentP(int16%360/10) broadcast ram ownsend airecv;
+  setComponentR(int16%360/10) broadcast ram ownsend airecv;
+  setComponentT(int16) broadcast ram ownsend airecv;
+  setSmStop : setComponentT;
+  setSmH : setComponentH, setComponentT;
+  setSmZ : setComponentZ, setComponentT;
+  setSmXY : setComponentX, setComponentY, setComponentT;
+  setSmXZ : setComponentX, setComponentZ, setComponentT;
+  setSmPos : setComponentX, setComponentY, setComponentZ, setComponentT;
+  setSmHpr : setComponentH, setComponentP, setComponentR, setComponentT;
+  setSmXYH : setComponentX, setComponentY, setComponentH, setComponentT;
+  setSmXYZH : setComponentX, setComponentY, setComponentZ, setComponentH, setComponentT;
+  setSmPosHpr : setComponentX, setComponentY, setComponentZ, setComponentH, setComponentP, setComponentR, setComponentT;
+  setSmPosHprL : setComponentL, setComponentX, setComponentY, setComponentZ, setComponentH, setComponentP, setComponentR, setComponentT;
+  clearSmoothing(int8) broadcast ownsend;
+  suggestResync(uint32, int16, int16, int32, uint16, uint16/100) ownrecv clsend;
+  returnResync(uint32, int16, int32, uint16, uint16/100) ownrecv clsend;
+};
+
+dclass DistributedToon : DistributedSmoothNode {
+  setDNAString(blob) required broadcast ownsend;
+  setHat(uint8, uint8, uint8) required broadcast ownsend;
+  setGlasses(uint8, uint8, uint8) required broadcast ownsend;
+  setBackpack(uint8, uint8, uint8) required broadcast ownsend;
+  setShoes(uint8, uint8, uint8) required broadcast ownsend;
+  setAnimState(char [0-1024], int16/1000, int16) broadcast ram ownsend airecv;
+  testField(blob) p2p ownrecv clsend;
+};
+
+dclass DistributedNPC : DistributedSmoothNode {
+  setDNAString(blob) required broadcast ownsend;
+  setAnimStates(char [0-1024], int16/1000, int16) broadcast ram ownsend airecv;
+};

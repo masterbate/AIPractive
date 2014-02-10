@@ -1,0 +1,46 @@
+[Cody] - 15:25 GMT London, 25/10/2013
+- Cleaned and polished some of the DistributedToon engine modules.
+- Added more animations to the animFSM.
+
+[Bryan] - 04:50 GMT London, 25/10/2013
+- Replaced alpha with beta
+
+[Cody] - 04:47 GMT London, 25/10/2013
+- Swapped the old DistributedToon engine for a newer version containing:
+     o telemetry interpolation
+     o a "smart camera"
+     o defined local/non-local avatars
+     o structured DNA
+     o Toon accessories
+     o "animated" Toon heads
+     
+[Joshsora] - 00:03 GMT London, 20/10/2013
+- Made ALOT of changes to the model.
+- Added some new textures.
+- Fixed all graphical glitches as far as we know.
+- Fixed stairs.
+- enhancing model to be lag-free/ram-saving (5% Done D:)
+  - Will continue with doing this when we have decided upon the
+    final model for Train Station.
+- started ticket office area.
+- expanded area for placement of ticket office building.
+
+NOTE - PANDA3D 1.8 IS THE BUGGIEST PIECE OF SHIT I'VE EVER SEEN.
+*joshsora downgrades to panda3D 1.7.2* :D everything works again :D
+
+Bugs:
+- Camera floating (easily fixable)
+- Tunnel floating (easily fixable)
+- wallCollisions no longer work (panda3D 1.8.1 Bug?)
+  Solution : the nodes need to be replaced. (easily fixable)
+
+[Joshsora] - 09:59 GMT-London, 17/10/2013
+- Made changes to the model.
+- Added some new textures.
+- Fixed most of the graphical glitches
+
+- attempting collisionMasks
+  - 12:19PM : thanks to cfsworks, I got it to work! :D
+
+NOTE: That doesn't mean you can blame me if TTR comes out on Sunday instead.
+@Mark_Larry : AWAKEN!
